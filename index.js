@@ -35,13 +35,25 @@ function drawMap({ latlng: [lat, long] }) {
   }
   map.setView([lat, long]);
 }
-// fetch lat/long
+// fetch/set lat/long
 async function posGetReq({ coords: { latitude: lat, longitude: long } }) {
-  const options = `?lat=${lat}&long=${long}&mobile=${mobile}`;
+  const options = `?lat=${lat}&long=${long}`;
   const blob = await fetch(`https://sleepy-knuth-3cbcf4.netlify.app/.netlify/functions/poslog${options}`);
   const json = await blob.json();
   posObj.latlng = json;
   drawMap(posObj);
 }
-// watch position
-navigator.geolocation.watchPosition(posGetReq);
+// fetch lat/long only
+async function posCheck() {
+  const blob = await fetch(`https://sleepy-knuth-3cbcf4.netlify.app/.netlify/functions/poslog`);
+  const json = await blob.json();
+  posObj.latlng = json;
+  drawMap(posObj);
+}
+// watch position, update if mobile
+// check position only if desktop
+if (mobile) {
+  navigator.geolocation.watchPosition(posGetReq);
+} else {
+  setInterval(posCheck, 3000);
+}
