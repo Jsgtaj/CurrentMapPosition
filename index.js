@@ -37,7 +37,7 @@ function drawMap({ latlng: [lat, long] }) {
 }
 // fetch/set lat/long
 async function posGetReq({ coords: { latitude: lat, longitude: long } }) {
-  const options = `?lat=${lat}&long=${long}`;
+  const options = `?lat=${lat}&long=${long}&mobile=true`;
   const blob = await fetch(`https://sleepy-knuth-3cbcf4.netlify.app/.netlify/functions/poslog${options}`);
   const json = await blob.json();
   posObj.latlng = json;
