@@ -52,8 +52,12 @@ async function posGetReq({ coords: { latitude: lat, longitude: long } }) {
 async function posCheck() {
   const blob = await fetch(`https://sleepy-knuth-3cbcf4.netlify.app/.netlify/functions/poslog`);
   const json = await blob.json();
-  posObj.latlng = json;
-  drawMap(posObj);
+  if (json != posObj.latlng) {
+    console.log(json)
+    console.log(posObj.latlng)
+    posObj.latlng = json;
+    drawMap(posObj);
+  }
 }
 // watch position, update if mobile
 // check position only if desktop
