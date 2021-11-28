@@ -43,7 +43,7 @@ async function posGetReq({ coords: { latitude: lat, longitude: long } }) {
   // if the position has changed, draw a marker
   console.log(json);
   console.log(posObj.latlng);
-  if (json !== posObj.latlng) {
+  if (json[0] !== posObj.latlng[0]) {
     posObj.latlng = json;
     drawMap(posObj);
   }
@@ -54,7 +54,7 @@ async function posCheck() {
   const json = await blob.json();
   console.log(json);
   console.log(posObj.latlng);
-  if (json !== posObj.latlng) {
+  if (json[0] !== posObj.latlng[0]) {
     posObj.latlng = json;
     drawMap(posObj);
   }
