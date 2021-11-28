@@ -22,7 +22,7 @@ let isAdded = false;
 
 // create or update marker
 function drawMap({ latlng: [lat, long] }) {
-  if (!isAdded) {
+  if (!isAdded || isAdded) {
     console.log(`created ${lat} ${long}`);
     marker = L.marker([lat, long]).addTo(map)
       .openPopup();
