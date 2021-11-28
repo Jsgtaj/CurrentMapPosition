@@ -40,8 +40,11 @@ async function posGetReq({ coords: { latitude: lat, longitude: long } }) {
   const options = `?lat=${lat}&long=${long}&mobile=true`;
   const blob = await fetch(`https://sleepy-knuth-3cbcf4.netlify.app/.netlify/functions/poslog${options}`);
   const json = await blob.json();
-  posObj.latlng = json;
-  drawMap(posObj);
+  // if the position has changed, draw a marker
+  if (json != posObj.latlng) {
+    posObj.latlng = json;
+    drawMap(posObj);
+  }
 }
 // fetch lat/long only
 async function posCheck() {
