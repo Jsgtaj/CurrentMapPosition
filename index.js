@@ -42,6 +42,8 @@ async function posGetReq({ coords: { latitude: lat, longitude: long } }) {
   const json = await blob.json();
   // if the position has changed, draw a marker
   if (json != posObj.latlng) {
+    console.log(json)
+    console.log(posObj.latlng)
     posObj.latlng = json;
     drawMap(posObj);
   }
